@@ -1,1 +1,1 @@
-# webscraper_similarweb
+# news_webscraper
