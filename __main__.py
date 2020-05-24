@@ -1,18 +1,28 @@
 import ntpath
 from selenium import webdriver as webdriver
+from selenium.webdriver.common.by import By
+import re
 
 class Configuration:
     def __init__(self, driver='./driver/chromedriver.exe'):
         self.driver = ntpath.normpath(driver)
 
 
-def call_website(driver):
-    URL = 'https://www.finanzen.net/news/de/adidas-news@intpagenr_13'
-    driver = webdriver.Chrome(executable_path=driver)
-    driver.get(URL)
-
 configuration = Configuration()
-call_website(configuration.driver)
+URL = 'https://www.finanzen.net/news/de/adidas-news@intpagenr_13'
+driver = configuration.driver
+driver = webdriver.Chrome(executable_path=driver)
+driver.get(URL)
+
+table_news = driver.find_element(By.XPATH, "//table[@class='table news-list']")
+tr = table_news.find_elements(By.XPATH, '//tr')
+re_date = r'[0-9]{2}\.[0-9]{2}\.[0-9]{2}\n'
+
+for index, element in enumerate(tr):
+    if re.match(re_date, element.text):
+        print(repr(element.text).splitlines())
+
+
 
 
 # <table class="table news-list">
