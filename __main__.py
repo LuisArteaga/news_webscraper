@@ -35,7 +35,7 @@ BASE_URL = configuration.websites['finanzen.net']['base_url']
 
 for stock in configuration.websites['finanzen.net']['stocks']:
     url = BASE_URL + stock + configuration.websites['finanzen.net']['url_parameters']
-    for i in range(17, 26):
+    for i in range(1, 26):
         driver.get(url+str(i))
         driver.implicitly_wait(20)
         re_date = r'[0-9]{2}\.[0-9]{2}\.[0-9]{2}\n'
